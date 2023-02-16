@@ -7,7 +7,11 @@ class Cell
     end
 
     def empty?
-      true
+      if @ship == nil
+        true
+      else
+        false
+      end
     end
 
     def place_ship(placed_ship)
