@@ -6,6 +6,7 @@ RSpec.describe Cell do
   before(:each) do
     @cell = Cell.new('B4')
     @cruiser = Ship.new('Cruiser', 3)
+    @submarine = Ship.new('Submarine', 2)
   end
 
   describe '#initialize' do
@@ -31,6 +32,7 @@ RSpec.describe Cell do
       @cell.place_ship(@cruiser)
       expect(@cell.ship).to be_a(Ship)
       expect(@cell.empty?).to eq(false)
+      expect(@cell.place_ship(@submarine)).to eq('Ship already placed.')
     end
 
     it 'can be fired upon' do
@@ -39,6 +41,12 @@ RSpec.describe Cell do
       @cell.fire_upon
       expect(@cell.ship.health).to eq(2)
       expect(@cell.fired_upon?).to eq(true)
+      expect(@cell.fire_upon).to eq('Already guessed.')
+    end
+
+    it ' can miss' do
+      @cell.fire_upon
+      expect(@cell.miss).to eq(true)
     end
   end
 end
