@@ -1,11 +1,11 @@
 class Cell
-    attr_reader :coordinate, :ship, :miss, :hit
+    attr_reader :coordinate, :ship, :miss, :shot
     
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = ship
     @miss = false
-    @hit = false
+    @shot = false
   end
 
   def empty?
@@ -25,7 +25,7 @@ class Cell
   end
 
   def fired_upon?
-    if @hit == true || @miss == true
+    if @shot == true || @miss == true
       true
     else
       false
@@ -33,13 +33,15 @@ class Cell
   end
 
   def fire_upon
-    if @ship == ship && @hit == false
-      @ship.hit
-      @hit = true
-    elsif @ship == ship && hit == true
-      'Already guessed.'
-    else
+    if @ship == nil && @shot == false
       @miss = true
+    elsif @ship == nil && @shot == true
+      'Already guessed.'
+    elsif @ship == ship && @shot == true
+      'Already guessed.'
+    elsif @ship == ship && @shot == false
+        @ship.hit
+        @shot = true
     end
   end
 end
