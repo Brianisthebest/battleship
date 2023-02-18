@@ -17,7 +17,7 @@ class Cell
   end
 
   def place_ship(placed_ship)
-    if @ship == nil
+    if empty?
       @ship = placed_ship
     else
       'Ship already placed.'
@@ -33,15 +33,10 @@ class Cell
   end
 
   def fire_upon
-    if @ship == nil && @shot == false #Use empty? method to clean this up
-      @miss = true
-    elsif @ship == nil && @shot == true
-      'Already guessed.'
-    elsif @ship == ship && @shot == true
-      'Already guessed.'
-    elsif @ship == ship && @shot == false
-      @ship.hit
-      @shot = true
+    if empty? 
+      fire_upon_empty
+    else !empty?
+      fire_upon_filled
     end
   end
   
@@ -74,6 +69,25 @@ class Cell
       '.'
     end
   end
+
+  def fire_upon_empty
+    if @shot == false 
+        @miss = true
+    else @shot == true
+      'Already guessed.'
+    end
+  end
+
+  def fire_upon_filled
+    if @shot == true
+      'Already guessed.'
+    else @shot == false
+      @ship.hit
+      @shot = true
+    end
+  end
 end
+  
+
     
     
