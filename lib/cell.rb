@@ -33,30 +33,47 @@ class Cell
   end
 
   def fire_upon
-    if @ship == nil && @shot == false
+    if @ship == nil && @shot == false #Use empty? method to clean this up
       @miss = true
     elsif @ship == nil && @shot == true
       'Already guessed.'
     elsif @ship == ship && @shot == true
       'Already guessed.'
     elsif @ship == ship && @shot == false
-        @ship.hit
-        @shot = true
+      @ship.hit
+      @shot = true
     end
   end
-
+  
   def render(hidden_access = false)
     if !fired_upon? && @ship == ship && hidden_access == true
       'S'
-    elsif fired_upon? && 
-      'X'
-    elsif fired_upon? && empty?
+    elsif empty?
+      render_empty_cells
+    elsif !empty?
+      render_filled_cells
+    end
+  end
+  
+  #Helper Methods
+  
+  def render_empty_cells
+    if fired_upon?
       'M'
-    elsif fired_upon? && @shot == true
+    else
+      '.'
+    end
+  end
+  
+  def render_filled_cells()
+    if fired_upon? && @shot == true
       'H'
-    else !fired_upon? 
-      "."
+    elsif @ship.sunk?
+      'X'
+    else
+      '.'
     end
   end
 end
-
+    
+    
