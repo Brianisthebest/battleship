@@ -75,6 +75,7 @@ RSpec.describe Cell do
     end
 
     it 'checks if a cruiser has sunk and renders x' do
+      @cell_2.place_ship(@cruiser)
       expect(@cruiser.sunk?).to eq(false)
       @cruiser.hit
       @cruiser.hit
