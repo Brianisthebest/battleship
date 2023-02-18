@@ -48,12 +48,14 @@ class Cell
   def render(hidden_access = false)
     if !fired_upon? && @ship == ship && hidden_access == true
       'S'
-    elsif !fired_upon? 
-      "."
+    elsif fired_upon? && 
+      'X'
     elsif fired_upon? && empty?
       'M'
     elsif fired_upon? && @shot == true
       'H'
+    else !fired_upon? 
+      "."
     end
   end
 end
