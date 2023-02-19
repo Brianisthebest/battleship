@@ -1,6 +1,6 @@
 class Board
 
-  attr_reader :cells
+  attr_reader :cells, :valid_length
   def initialize
     @cells = {
       "A1" => Cell.new("A1"),
@@ -20,6 +20,7 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4"),
     }
+    @valid_vertical = ['A1', 'B1', 'C1', 'D1', 'A2', 'B2', 'C2', 'D2', 'A3', 'B3', 'C3', 'D3', 'A4', 'B4', 'C4', 'D4']
   end
 
   def valid_coordinate?(coordinate)
@@ -27,7 +28,34 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    # require 'pry'; binding.pry
+    if valid_length?(ship, coordinates)
+      consecutive_coordinates(ship, coordinates) || valid_verticals(ship, coordinates)
+    else
+      false
+    end
+  end
+  
+  #Helper Method
+  
+  def valid_length?(ship, coordinates)
     ship.length == coordinates.length
+  end
+  
+  def consecutive_coordinates(ship, coordinates)
+    @cells.keys.each_cons(ship.length) do |key|
+      if key == coordinates
+        return true
+      end
+    end
+    false
+  end
+
+  def valid_verticals(ship, coordinates)
+    @valid_vertical.each_cons(ship.length) do |key|
+      if key == coordinates
+        return true
+      end
+    end
+    false
   end
 end
