@@ -34,6 +34,13 @@ class Board
       false
     end
   end
+
+  def place(ship, coordinates)
+    if coordinates.each { |coordinate| valid_coordinate?(coordinate) } && valid_placement?(ship, coordinates)
+      @cells.each do |coordinate|
+      end
+    end
+  end
   
   #Helper Method
   
