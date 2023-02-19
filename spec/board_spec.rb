@@ -68,12 +68,24 @@ RSpec.describe Board do
       expect(@cell_1.ship).to eq(@cruiser)
       expect(@cell_2.ship).to eq(@cruiser)
       expect(@cell_3.ship).to eq(@cruiser)
-      # require 'pry'; binding.pry   ## hitting a pry @board.cells here i can now see the ship in cells above. need to reach through the cells object to test that both cells have same ship object
+      require 'pry'; binding.pry   ## hitting a pry @board.cells here i can now see the ship in cells above. need to reach through the cells object to test that both cells have same ship object
+      expect(@board.cells["A1"].ship).to eq(@cruiser)
+      expect(@board.cells["A2"].ship).to eq(@cruiser)
+      expect(@board.cells["A3"].ship).to eq(@cruiser)
+      expect(@board.cells["A4"].ship).to eq(nil)
+      expect(@cell_3.ship).to eq(@cell_2.ship)
+    end
+    
+    it 'places another ship on the board' do
       @board.place(@submarine, ['B1', 'C1'])
       @cell_1 = @board.cells["B1"]
       @cell_2 = @board.cells["C1"]
       expect(@cell_1.ship).to eq(@submarine)
       expect(@cell_2.ship).to eq(@submarine)
+      expect(@board.cells["B1"].ship).to eq(@submarine)
+      expect(@board.cells["C1"].ship).to eq(@submarine)
+      expect(@board.cells["A1"].ship).to eq(nil)
+      expect(@cell_1.ship).to eq(@cell_2.ship)
     end
   end
 end
