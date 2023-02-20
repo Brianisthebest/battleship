@@ -68,7 +68,7 @@ RSpec.describe Board do
       expect(@cell_1.ship).to eq(@cruiser)
       expect(@cell_2.ship).to eq(@cruiser)
       expect(@cell_3.ship).to eq(@cruiser)
-      require 'pry'; binding.pry   ## hitting a pry @board.cells here i can now see the ship in cells above. need to reach through the cells object to test that both cells have same ship object
+      # require 'pry'; binding.pry   ## hitting a pry @board.cells here i can now see the ship in cells above. need to reach through the cells object to test that both cells have same ship object
       expect(@board.cells["A1"].ship).to eq(@cruiser)
       expect(@board.cells["A2"].ship).to eq(@cruiser)
       expect(@board.cells["A3"].ship).to eq(@cruiser)
@@ -86,6 +86,12 @@ RSpec.describe Board do
       expect(@board.cells["C1"].ship).to eq(@submarine)
       expect(@board.cells["A1"].ship).to eq(nil)
       expect(@cell_1.ship).to eq(@cell_2.ship)
+    end
+
+    it 'doesnt allow ships to overlap' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+
+      expect(@board.valid_placement?(@submarine, ['A1', 'A2'])).to eq(false)
     end
   end
 end

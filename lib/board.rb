@@ -28,7 +28,7 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    if valid_length?(ship, coordinates)
+    if valid_length?(ship, coordinates) && not_overlapping?(coordinates)
       consecutive_coordinates(ship, coordinates) || valid_verticals(ship, coordinates)
     else
       false
@@ -38,21 +38,22 @@ class Board
   def place(ship, coordinates)
     if valid_placement?(ship, coordinates) #moved this up, if valid_placement?(ship, coordinates) then allow rest of method to run
        coordinates.each do |coordinate|#each method is being called on the coordinates array(from cell class)
-         @cell = @cells[coordinate] #creating local variable for the cell object(@cells[coordinate])
-        @cell.place_ship(ship) #call place_ship method(from cell class) on variable we created for cell object, pass in ship argument
+         cell = @cells[coordinate] #creating local variable for the cell object(@cells[coordinate])
+        cell.place_ship(ship) #call place_ship method(from cell class) on variable we created for cell object, pass in ship argument
       end
     end
   end
-
-   
-    # if coordinates.each { |coordinate| valid_coordinate?(coordinate) && valid_placement?(ship, coordinate) } then return true
-    #   @cells.each do |coordinate|
-
   
   #Helper Method
   
   def valid_length?(ship, coordinates)
     ship.length == coordinates.length
+  end
+
+  def not_overlapping?(coordinates)
+    coordinates.any? do |coordinate|
+      @cells[coordinate].empty?
+    end
   end
   
   def consecutive_coordinates(ship, coordinates)
