@@ -34,6 +34,20 @@ class Board
       false
     end
   end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates) #moved this up, if valid_placement?(ship, coordinates) then allow rest of method to run
+       coordinates.each do |coordinate|#each method is being called on the coordinates array(from cell class)
+         @cell = @cells[coordinate] #creating local variable for the cell object(@cells[coordinate])
+        @cell.place_ship(ship) #call place_ship method(from cell class) on variable we created for cell object, pass in ship argument
+      end
+    end
+  end
+
+   
+    # if coordinates.each { |coordinate| valid_coordinate?(coordinate) && valid_placement?(ship, coordinate) } then return true
+    #   @cells.each do |coordinate|
+
   
   #Helper Method
   
