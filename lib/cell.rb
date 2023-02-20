@@ -41,7 +41,7 @@ class Cell
   end
   
   def render(hidden_access = false)
-    if !fired_upon? && @ship == ship && hidden_access == true
+    if !fired_upon? && !empty? && hidden_access == true
       'S'
     elsif empty?
       render_empty_cells
@@ -60,11 +60,11 @@ class Cell
     end
   end
   
-  def render_filled_cells()
-    if fired_upon? && @shot == true
-      'H'
-    elsif @ship.sunk?
+  def render_filled_cells
+    if @ship.sunk?
       'X'
+    elsif fired_upon? && @shot == true
+      'H'
     else
       '.'
     end

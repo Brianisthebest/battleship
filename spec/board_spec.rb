@@ -94,4 +94,35 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@submarine, ['A1', 'A2'])).to eq(false)
     end
   end
+
+  describe '#render' do
+    it 'can render the board' do
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    it 'can check for player ships, hits, and misses' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      @board.place(@submarine, ['C4', 'D4'])
+      @cell_1 = @board.cells['B3']
+      @cell_1.fire_upon
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . M . \nC . . . S \nD . . . S \n")
+      @cell_2 = @board.cells['C4']
+      @cell_2.fire_upon
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . M . \nC . . . H \nD . . . S \n")
+      @cell_3 = @board.cells['D4']
+      @cell_3.fire_upon
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . M . \nC . . . X \nD . . . X \n")
+      @cell_4 = @board.cells['A1']
+      @cell_5 = @board.cells['A2']
+      @cell_6 = @board.cells['A3']
+      @cell_4.fire_upon
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA H S S . \nB . . M . \nC . . . X \nD . . . X \n")
+      @cell_5.fire_upon
+      @cell_6.fire_upon
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA X X X . \nB . . M . \nC . . . X \nD . . . X \n")
+    end
+  end
 end
