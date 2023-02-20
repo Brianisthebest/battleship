@@ -61,10 +61,10 @@ class Cell
   end
   
   def render_filled_cells
-    if fired_upon? && @shot == true
-      'H'
-    elsif @ship.sunk?
+    if @ship.sunk?
       'X'
+    elsif fired_upon? && @shot == true
+      'H'
     else
       '.'
     end
