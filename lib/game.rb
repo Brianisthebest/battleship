@@ -61,7 +61,7 @@ class Game
 
   def display_boards
     puts "***********Computer Board*************************"
-    puts @comp_board.render
+    puts @comp_board.render(true)
     puts "***********Player Board*************************"
     puts @player_board.render(true)
   end
