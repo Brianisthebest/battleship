@@ -1,6 +1,6 @@
 class Board
 
-  attr_reader :cells, :valid_length
+  attr_reader :cells, :valid_length, :valid_vertical
   def initialize
     @cells = {
       "A1" => Cell.new("A1"),
