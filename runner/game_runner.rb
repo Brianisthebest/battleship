@@ -6,3 +6,5 @@ require './lib/game'
 game = Game.new
 
 puts game.main_menu
+
+puts game.comp_ship_placement
