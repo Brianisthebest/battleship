@@ -65,7 +65,7 @@ end
   end
 
   def not_overlapping?(coordinates)
-    coordinates.any? do |coordinate|
+    coordinates.all? do |coordinate|
       @cells[coordinate].empty?
     end
   end
