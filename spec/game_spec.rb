@@ -15,7 +15,7 @@ RSpec.describe Game do
     end
 
     it 'has a main menu' do
-      expect(@game.main_menu).to 
+      @game.comp_ship_placement
     end
   end
 end
