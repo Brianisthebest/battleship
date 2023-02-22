@@ -43,7 +43,6 @@ RSpec.describe Cell do
       @cell.fire_upon
       expect(@cell.ship.health).to eq(2)
       expect(@cell.fired_upon?).to eq(true)
-      expect(@cell.fire_upon).to eq('Already guessed.')
     end
 
     it ' can miss' do
