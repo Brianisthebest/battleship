@@ -30,6 +30,7 @@ class Game
 
     if input == 'q'
       puts 'Thanks for playing, yall come back now.'
+      exit
     elsif input == 'p'
       puts 'To your battle station!'
     else
@@ -45,7 +46,7 @@ class Game
         @comp_board.place(cruiser, coordinates)
         puts "I've placed my cruiser"
       else
-        self.comp_cruiser_placement
+        comp_cruiser_placement
     end
   end
 
@@ -77,7 +78,7 @@ class Game
       puts 'Invalid response.'
       player_ship_placement
     end
-      self.player_submarine
+      player_submarine
       puts "***********************************"
   end
 
@@ -89,21 +90,23 @@ class Game
   end
 
   def player_turn
-    
     puts "Choose a valid coordinate to fire upon"
     coordinate = gets.chomp
     if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
       @comp_board.cells[coordinate].fire_upon 
     else
-      self.player_turn
+      player_turn
       "Invalid coordinate."
     end
   end
 
   def comp_turn
     comp_guess = @player_board.cells.keys.sample(1)
-    @player_board.cells[comp_guess[0]].fire_upon
-    puts "I fire upon #{comp_guess[0]}"
+    if !@playter_board.cells[coordinate].fired_upon?
+      @player_board.cells[comp_guess[0]].fire_upon
+      puts "I fire upon #{comp_guess[0]}"
+    end
+    comp_turn
   end
 
   def game_over
@@ -123,9 +126,6 @@ class Game
     end
     puts "Game over!"
   end
-
-
-
   
   #helper method
   def player_submarine
@@ -140,9 +140,5 @@ class Game
      puts 'Invalid response.'
      player_submarine
     end
-  end
-
-  def turn_taker
-    
   end
 end
