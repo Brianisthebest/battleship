@@ -3,6 +3,10 @@ class Game
   def initialize
     @player_board = Board.new
     @comp_board  = Board.new
+    @player_cruiser_sunk = nil
+    @player_sub_sunk = nil
+    @comp_cruiser_sunk = nil
+    @comp_sub_sunk = nil
   end
 
   
@@ -95,34 +99,29 @@ class Game
     if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
       @comp_board.cells[coordinate].fire_upon 
     else
+      puts "Already guessed"
       player_turn
-      "Invalid coordinate."
     end
   end
 
   def comp_turn
     comp_guess = @player_board.cells.keys.sample(1)
-    if !@playter_board.cells[coordinate].fired_upon?
+    # if @player_board.valid_coordinate?(comp_guess) && !@player_board.cells[comp_guess].fired_upon?
       @player_board.cells[comp_guess[0]].fire_upon
       puts "I fire upon #{comp_guess[0]}"
-    end
-    comp_turn
+    # else
+    #   comp_turn
+    # end
+    ## Why is this not working as intended?
   end
 
   def game_over
-    cruiser = Ship.new('Cruiser', 3)
-    submarine = Ship.new('Submarine', 2)
-    crusier_2 = Ship.new('Crusier', 2)
-    submarine_2 = Ship.new('Submarine', 2)
-    # until (@comp_board.cruiser.sunk? && @comp_board.submarine.sunk?) || @player_board.crusier_2.sunk? || @player_board.submarine_2.sunk?
-    # until @comp_board.cells[]
-    # until (comp_cruiser_placement. && comp_sub_placement.) || (player_ship_placement.render_filled_cells && player_submarine.render_filled_cells)
-      # loop do
-      until 
+      until (@player_cruiser_sunk == true && @player_sub_sunk == true) || (@comp_cruiser_sunk == true && @comp_sub_sunk == true)
         player_turn 
         display_boards
         comp_turn
         display_boards
+        ship_sunk
     end
     puts "Game over!"
   end
@@ -139,6 +138,27 @@ class Game
     else
      puts 'Invalid response.'
      player_submarine
+    end
+  end
+
+  def ship_sunk
+    @player_board.cells.each do |_, cell|
+      if cell.ship != nil
+        if cell.ship.name == 'Cruiser' && cell.ship.sunk? == true
+          @player_cruiser_sunk = true
+        elsif cell.ship.name == 'Submarine' && cell.ship.sunk? == true
+          @player_sub_sunk = true
+        end
+      end
+    end
+    @comp_board.cells.each do |_, cell|
+      if cell.ship != nil
+        if cell.ship.name == 'Cruiser' && cell.ship.sunk? == true
+          @comp_cruiser_sunk = true
+        elsif cell.ship.name == 'Submarine' && cell.ship.sunk? == true
+          @comp_sub_sunk = true
+        end
+      end
     end
   end
 end
