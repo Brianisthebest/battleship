@@ -49,9 +49,13 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@submarine, ['C1', 'B1'])).to eq(false)
       expect(@board.valid_placement?(@cruiser, ['B1', 'B2', 'B3'])).to eq(true)
       expect(@board.valid_placement?(@cruiser, ['A1', 'B1', 'C1'])).to eq(true)
+    end
+    
+    it 'checks that coordinates are not wrapping on the board' do
+      
       expect(@board.valid_placement?(@cruiser, ['B3', 'B4', 'C1'])).to eq(false)
     end
-
+    
     it 'makes sure coordinates cant be diagonal' do
       expect(@board.valid_placement?(@cruiser, ['A1', 'B1', 'C3'])).to eq(false)
       expect(@board.valid_placement?(@submarine, ['C2', 'D3'])).to eq(false)
