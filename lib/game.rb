@@ -11,8 +11,21 @@ class Game
 
   
   def main_menu
-    puts 'Welcome to BATTLESHIP
-    Enter p to play. Enter q to quit.'
+    puts '                               Welcome to BATTLESHIP
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~oo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                 o o
+                                 o ooo
+                                   o oo
+                                      o o      |   #)
+                                       oo     _|_|_#_ 
+                                         o   | 751   |
+    __                    ___________________|       |_________________
+   |   -_______-----------                                              \
+  >|    _____                                                   --->     )
+   |__ -     ---------_________________________________________________ /
+
+                        Enter p to play. Enter q to quit.'
     input = gets.chomp
 
     if input == 'q'
