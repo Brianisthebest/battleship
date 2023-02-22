@@ -28,13 +28,25 @@ class Game
     end
   end
 
-  def comp_ship_placement
+  def comp_cruiser_placement
     cruiser = Ship.new('Cruiser', 3)
-    submarine = Ship.new('Submarine', 3)
     coordinates = @comp_board.cells.keys.each_cons(3).to_a.sample 
     if @comp_board.valid_placement?(cruiser, coordinates)
         @comp_board.place(cruiser, coordinates)
-        #  @comp_board.place(cruiser, ['A1', 'A2', 'A3']) ##we just set computer placement coordinates. figure out randomize later
+        puts "I've placed my cruiser"
+      else
+        self.comp_cruiser_placement
+    end
+  end
+
+  def comp_sub_placement
+    submarine = Ship.new('Submarine', 2)
+    coordinates = @comp_board.cells.keys.each_cons(2).to_a.sample
+    if @comp_board.valid_placement?(submarine, coordinates)
+      @comp_board.place(submarine, coordinates)
+      puts "I've placed my submarine, now your turn loser"
+    else
+      self.comp_sub_placement
     end
   end
 
@@ -67,17 +79,21 @@ class Game
   end
 
   def player_turn
-    self.display_boards
-    puts "Choose a vailid coordinate to fire upon"
+    # self.display_boards
+    puts "Choose a valid coordinate to fire upon"
     coordinate = gets.chomp
-    if @comp_board.valid_coordinate?(coordinate) 
-      @comp_board.cells[coordinate].fire_upon_empty ###fire upon method not working. this will return miss every time thoguh
+    if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
+      @comp_board.cells[coordinate].fire_upon 
+    else
+      self.player_turn
+      "Invalid coordinate."
     end
   end
 
   def comp_turn
-    comp_guess = @comp_board.cells.keys.sample(1)
-    @player_board.cells[comp_guess].fire_upon
+    comp_guess = @player_board.cells.keys.sample(1)
+    @player_board.cells[comp_guess[0]].fire_upon
+    puts "I fire upon #{comp_guess[0]}"
   end
 
   
