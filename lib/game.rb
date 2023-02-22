@@ -5,11 +5,6 @@ class Game
     @comp_board  = Board.new
   end
 
-  
-
-
-
-  
   def main_menu
     puts 'Welcome to BATTLESHIP
     Enter p to play. Enter q to quit.'
@@ -20,11 +15,9 @@ class Game
       puts 'Thanks for playing, yall come back now.'
     elsif input == 'p'
       puts 'To your battle station!'
-      # self.player_ship_placement
-      # self.comp_ship_placement
     else
       puts 'Invalid response.'
-      self.main_menu
+      main_menu
     end
   end
 
@@ -35,7 +28,7 @@ class Game
         @comp_board.place(cruiser, coordinates)
         puts "I've placed my cruiser"
       else
-        self.comp_cruiser_placement
+        comp_cruiser_placement
     end
   end
 
@@ -46,7 +39,7 @@ class Game
       @comp_board.place(submarine, coordinates)
       puts "I've placed my submarine, now your turn loser"
     else
-      self.comp_sub_placement
+      comp_sub_placement
     end
   end
 
@@ -65,28 +58,28 @@ class Game
       puts @player_board.render(true)
     else
       puts 'Invalid response.'
-      self.player_ship_placement
+      player_ship_placement
     end
-      self.player_submarine
+      player_submarine
       puts "***********************************"
   end
 
   def display_boards
     puts "***********Computer Board*************************"
-    puts @comp_board.render(true)
+    puts @comp_board.render(true) ###remember to take the argument out
     puts "***********Player Board*************************"
     puts @player_board.render(true)
   end
 
   def player_turn
-    # self.display_boards
+    
     puts "Choose a valid coordinate to fire upon"
     coordinate = gets.chomp
     if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
       @comp_board.cells[coordinate].fire_upon 
     else
-      self.player_turn
       "Invalid coordinate."
+      player_turn
     end
   end
 
@@ -95,6 +88,26 @@ class Game
     @player_board.cells[comp_guess[0]].fire_upon
     puts "I fire upon #{comp_guess[0]}"
   end
+
+  def game_over
+    cruiser = Ship.new('Cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
+    crusier_2 = Ship.new('Crusier', 2)
+    submarine_2 = Ship.new('Submarine', 2)
+    # until (@comp_board.cruiser.sunk? && @comp_board.submarine.sunk?) || @player_board.crusier_2.sunk? || @player_board.submarine_2.sunk?
+    # until @comp_board.cells[]
+    # until (comp_cruiser_placement. && comp_sub_placement.) || (player_ship_placement.render_filled_cells && player_submarine.render_filled_cells)
+      # loop do
+      until 
+        player_turn 
+        display_boards
+        comp_turn
+        display_boards
+    end
+    puts "Game over!"
+  end
+
+
 
   
   #helper method
@@ -108,7 +121,7 @@ class Game
      puts @player_board.render(true)
     else
      puts 'Invalid response.'
-     self.player_submarine
+     player_submarine
     end
   end
 end

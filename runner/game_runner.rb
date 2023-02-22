@@ -15,18 +15,29 @@ puts game.player_ship_placement
 
 puts game.display_boards
 
-puts game.player_turn
+puts game.game_over
 
-puts game.display_boards
+# puts game.player_turn
 
-puts game.comp_turn
+# puts game.display_boards
 
-puts game.display_boards
+# puts game.comp_turn
 
-puts game.player_turn
+# puts game.display_boards
 
-puts game.display_boards
+# puts game.player_turn
 
-puts game.comp_turn
+# puts game.display_boards
 
-puts game.display_boards
+# puts game.comp_turn
+
+# puts game.display_boards
+
+# puts game.player_turn
+
+# puts game.display_boards
+
+# puts game.comp_turn
+
+# puts game.display_boards
+
