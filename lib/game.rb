@@ -71,7 +71,6 @@ class Game
   end
 
   def player_turn
-    # self.display_boards
     puts "Choose a valid coordinate to fire upon"
     coordinate = gets.chomp
     if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
@@ -105,6 +104,10 @@ class Game
   end
 
   def turn_taker
-    
+    #Until a either both player or computer ships are sunk? and then just bounce back
+    #and forth between comp and player turns? Think about it more tomorrow and look
+    #more into Until.
+
+    #Also, fun fact, no need for the self. before the method, no idea why it wasn't working that way previously
   end
 end
