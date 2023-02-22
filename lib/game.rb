@@ -123,7 +123,14 @@ class Game
         display_boards
         ship_sunk
     end
-    puts "Game over!"
+    if @player_cruiser_sunk == true && @player_sub_sunk == true
+      puts 'Game Over'
+      puts 'Computer wins'
+    elsif @comp_cruiser_sunk == true && @comp_sub_sunk == true
+      puts 'Game Over'
+      puts 'You Win'
+    end
+    main_menu
   end
   
   #helper method
