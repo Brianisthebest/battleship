@@ -18,7 +18,12 @@ RSpec.describe Game do
       @game.player_turn
       # @game.comp_ship_placement
       @game.game_over
+    end
+  end
 
+  describe '#comp_turn' do
+    it 'takes a turn' do
+      # expect
     end
   end
 end
