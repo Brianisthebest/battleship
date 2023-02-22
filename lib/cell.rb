@@ -9,7 +9,7 @@ class Cell
   end
 
   def empty?
-    @ship.nil?
+   @ship.nil?
   end
 
   def place_ship(placed_ship)

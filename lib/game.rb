@@ -4,6 +4,11 @@ class Game
     @player_board = Board.new
     @comp_board  = Board.new
   end
+
+  
+
+
+
   
   def main_menu
     puts 'Welcome to BATTLESHIP
@@ -26,8 +31,8 @@ class Game
     if @comp_board.valid_placement?(cruiser, coordinates)
         @comp_board.place(cruiser, coordinates)
         puts "I've placed my cruiser"
-    else
-      comp_cruiser_placement
+      else
+        self.comp_cruiser_placement
     end
   end
 
@@ -59,26 +64,26 @@ class Game
       puts 'Invalid response.'
       player_ship_placement
     end
-    puts "***********************************"
-    player_submarine
+      self.player_submarine
+      puts "***********************************"
   end
 
   def display_boards
     puts "***********Computer Board*************************"
     puts @comp_board.render(true)
-    puts "************Player Board**************************"
+    puts "***********Player Board*************************"
     puts @player_board.render(true)
   end
 
   def player_turn
-    # self.display_boards
+    
     puts "Choose a valid coordinate to fire upon"
     coordinate = gets.chomp
     if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
       @comp_board.cells[coordinate].fire_upon 
     else
-      "Invalid coordinate, try again."
-      player_turn
+      self.player_turn
+      "Invalid coordinate."
     end
   end
 
@@ -87,6 +92,26 @@ class Game
     @player_board.cells[comp_guess[0]].fire_upon
     puts "I fire upon #{comp_guess[0]}"
   end
+
+  def game_over
+    cruiser = Ship.new('Cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
+    crusier_2 = Ship.new('Crusier', 2)
+    submarine_2 = Ship.new('Submarine', 2)
+    # until (@comp_board.cruiser.sunk? && @comp_board.submarine.sunk?) || @player_board.crusier_2.sunk? || @player_board.submarine_2.sunk?
+    # until @comp_board.cells[]
+    # until (comp_cruiser_placement. && comp_sub_placement.) || (player_ship_placement.render_filled_cells && player_submarine.render_filled_cells)
+      # loop do
+      until 
+        player_turn 
+        display_boards
+        comp_turn
+        display_boards
+    end
+    puts "Game over!"
+  end
+
+
 
   
   #helper method
