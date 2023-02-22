@@ -73,14 +73,11 @@ class Cell
   def fire_upon_empty
     if @shot == false 
         @miss = true
-    else @shot == true
-      'Already guessed.'
     end
   end
 
   def fire_upon_filled
     if @shot == true
-      'Already guessed.'
     else @shot == false
       @ship.hit
       @shot = true
