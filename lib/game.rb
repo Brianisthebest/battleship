@@ -37,6 +37,12 @@ class Game
       exit
     elsif input == 'p'
       puts 'To your battle station!'
+      
+      comp_cruiser_placement
+      comp_sub_placement
+      player_ship_placement
+      display_boards
+      game_over
     else
       puts 'Invalid response.'
       main_menu
@@ -106,31 +112,49 @@ class Game
 
   def comp_turn
     comp_guess = @player_board.cells.keys.sample(1)
-    # if @player_board.valid_coordinate?(comp_guess) && !@player_board.cells[comp_guess].fired_upon?
+    if !@player_board.cells[comp_guess.join].fired_upon?
       @player_board.cells[comp_guess[0]].fire_upon
       puts "I fire upon #{comp_guess[0]}"
-    # else
-    #   comp_turn
-    # end
-    ## Why is this not working as intended?
+      #Add hit, miss, or sink
+    else
+      comp_turn
+    end
   end
 
   def game_over
-      until (@player_cruiser_sunk == true && @player_sub_sunk == true) || (@comp_cruiser_sunk == true && @comp_sub_sunk == true)
-        player_turn 
-        display_boards
-        comp_turn
-        display_boards
-        ship_sunk
+    until (@player_cruiser_sunk == true && @player_sub_sunk == true) || (@comp_cruiser_sunk == true && @comp_sub_sunk == true)
+      player_turn 
+      display_boards
+      comp_turn
+      display_boards
+      ship_sunk
     end
     if @player_cruiser_sunk == true && @player_sub_sunk == true
       puts 'Game Over'
       puts 'Computer wins'
+      @player_cruiser_sunk = nil
+      @player_sub_sunk = nil
+      er_board = Board.new
+      @comp_board  = Board.new
+      main_menu
     elsif @comp_cruiser_sunk == true && @comp_sub_sunk == true
       puts 'Game Over'
       puts 'You Win'
+      @comp_cruiser_sunk = nil
+      @comp_sub_sunk = nil
+      @player_board = Board.new
+      @comp_board  = Board.new
+      main_menu
+    else @player_cruiser_sunk == true && @player_sub_sunk == true && @comp_cruiser_sunk == true && @comp_sub_sunk == true
+      puts "Everyone loses!"
+      @comp_cruiser_sunk = nil
+      @comp_sub_sunk = nil
+      @player_cruiser_sunk = nil
+      @player_sub_sunk = nil
+      @player_board = Board.new
+      @comp_board  = Board.new
+      main_menu
     end
-    main_menu
   end
   
   #helper method
