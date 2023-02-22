@@ -4,27 +4,19 @@ class Game
     @player_board = Board.new
     @comp_board  = Board.new
   end
-
-  
-
-
-
   
   def main_menu
     puts 'Welcome to BATTLESHIP
     Enter p to play. Enter q to quit.'
-
     input = gets.chomp
 
     if input == 'q'
       puts 'Thanks for playing, yall come back now.'
     elsif input == 'p'
       puts 'To your battle station!'
-      # self.player_ship_placement
-      # self.comp_ship_placement
     else
       puts 'Invalid response.'
-      self.main_menu
+      main_menu
     end
   end
 
@@ -34,8 +26,8 @@ class Game
     if @comp_board.valid_placement?(cruiser, coordinates)
         @comp_board.place(cruiser, coordinates)
         puts "I've placed my cruiser"
-      else
-        self.comp_cruiser_placement
+    else
+      comp_cruiser_placement
     end
   end
 
@@ -46,7 +38,7 @@ class Game
       @comp_board.place(submarine, coordinates)
       puts "I've placed my submarine, now your turn loser"
     else
-      self.comp_sub_placement
+      comp_sub_placement
     end
   end
 
@@ -55,7 +47,7 @@ class Game
 
     puts "It's time to put out your ships."
     puts "The cruiser is 3 units long, the submarine is 2 units long"
-    puts "***********************************"
+    puts "*************************************"
     puts @player_board.render
     puts "Enter the squares for cruiser (3 spaces):"
     coordinates = gets.chomp.split
@@ -65,16 +57,16 @@ class Game
       puts @player_board.render(true)
     else
       puts 'Invalid response.'
-      self.player_ship_placement
+      player_ship_placement
     end
-      self.player_submarine
-      puts "***********************************"
+    puts "***********************************"
+    player_submarine
   end
 
   def display_boards
     puts "***********Computer Board*************************"
     puts @comp_board.render(true)
-    puts "***********Player Board*************************"
+    puts "************Player Board**************************"
     puts @player_board.render(true)
   end
 
@@ -85,8 +77,8 @@ class Game
     if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
       @comp_board.cells[coordinate].fire_upon 
     else
-      self.player_turn
-      "Invalid coordinate."
+      "Invalid coordinate, try again."
+      player_turn
     end
   end
 
@@ -108,7 +100,11 @@ class Game
      puts @player_board.render(true)
     else
      puts 'Invalid response.'
-     self.player_submarine
+     player_submarine
     end
+  end
+
+  def turn_taker
+    
   end
 end
