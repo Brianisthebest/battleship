@@ -49,6 +49,7 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@submarine, ['C1', 'B1'])).to eq(false)
       expect(@board.valid_placement?(@cruiser, ['B1', 'B2', 'B3'])).to eq(true)
       expect(@board.valid_placement?(@cruiser, ['A1', 'B1', 'C1'])).to eq(true)
+      expect(@board.valid_placement?(@cruiser, ['B3', 'B4', 'C1'])).to eq(false)
     end
 
     it 'makes sure coordinates cant be diagonal' do
@@ -68,7 +69,6 @@ RSpec.describe Board do
       expect(@cell_1.ship).to eq(@cruiser)
       expect(@cell_2.ship).to eq(@cruiser)
       expect(@cell_3.ship).to eq(@cruiser)
-      # require 'pry'; binding.pry   ## hitting a pry @board.cells here i can now see the ship in cells above. need to reach through the cells object to test that both cells have same ship object
       expect(@board.cells["A1"].ship).to eq(@cruiser)
       expect(@board.cells["A2"].ship).to eq(@cruiser)
       expect(@board.cells["A3"].ship).to eq(@cruiser)

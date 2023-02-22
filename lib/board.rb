@@ -20,7 +20,11 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4"),
     }
-    @valid_vertical = ['A1', 'B1', 'C1', 'D1', 'A2', 'B2', 'C2', 'D2', 'A3', 'B3', 'C3', 'D3', 'A4', 'B4', 'C4', 'D4']
+    @valid_vertical = [['A1', 'B1', 'C1', 'D1', 'A2', 'B2', 'C2', 'D2', 'A3', 'B3', 'C3', 'D3', 'A4', 'B4', 'C4', 'D4']
+    #valid horizontal cruiser
+    #valid vertical cruiser
+    #valid horizontal submarine
+    #valid vertical submarine
   end
 
   def valid_coordinate?(coordinate)

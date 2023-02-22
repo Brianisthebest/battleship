@@ -15,7 +15,9 @@ RSpec.describe Game do
     end
 
     it 'has a main menu' do
-      @game.comp_ship_placement
+      @game.player_turn
+      # @game.comp_ship_placement
+
     end
   end
 end
