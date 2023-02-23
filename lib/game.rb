@@ -188,6 +188,7 @@ class Game
 
       puts '##########################################################################'
       puts 'You Win!!!!!!'
+      sleep(3)
       game_reset
     else @player_cruiser_sunk == true && @player_sub_sunk == true && @comp_cruiser_sunk == true && @comp_sub_sunk == true
       puts "Everyone loses!"
@@ -214,8 +215,6 @@ class Game
   it_sunk
   end
   
-
-
   def game_reset
     @comp_cruiser_sunk = nil
     @comp_sub_sunk = nil
@@ -265,13 +264,16 @@ class Game
     if @player_board.cells[comp_guess[0]].ship != nil
       if @player_board.cells[comp_guess[0]].ship.sunk? == true
           puts 'I sunk your battleship!'
+          sleep(2)
       elsif @player_board.cells[comp_guess[0]].shot == true
           puts "I hit your battleship on #{comp_guess[0]}!"
+          sleep(2)
       end
-      if @player_board.cells[comp_guess[0]].ship == nil
-        @player_board.cells[comp_guess[0]].miss == true
-        puts "Nooo! I missed your battleship on #{comp_guess[0]}!"
-      end
+    end
+    if @player_board.cells[comp_guess[0]].ship == nil
+      @player_board.cells[comp_guess[0]].miss == true
+      puts "Nooo! I missed your battleship on #{comp_guess[0]}!"
+      sleep(2)
     end
   end
 
