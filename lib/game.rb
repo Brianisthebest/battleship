@@ -195,12 +195,12 @@ class Game
       if @comp_board.cells[coordinate].ship.sunk? == true
         puts 'I sunk your battleship!'
       elsif @comp_board.cells[coordinate].shot == true
-        puts 'I hit your battleship!'
+        puts "I hit your battleship on #{coordinate}!"
       end
     end
     if @comp_board.cells[coordinate].ship == nil
       @comp_board.cells[coordinate].miss == true
-      puts 'Nooo! I missed your battleship!'
+      puts "Nooo! I missed your battleship on #{coordinate}!"
     end
   end
 end
