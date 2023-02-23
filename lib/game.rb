@@ -90,7 +90,7 @@ class Game
     cruiser = Ship.new('Cruiser', 3)
     puts "**********************************************************"
     puts "It's time to put out your ships."
-    puts "8========================================================D" #change this
+    puts "**********************************************************"
     puts "The cruiser is 3 units long, the submarine is 2 units long"
     puts "**********************************************************"
     puts @player_board.render

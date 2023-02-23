@@ -1,5 +1,5 @@
 class Board
-  attr_reader :cells, :valid_horizontal_cruiser, :valid_vertical_cruiser, :valid_horizontal_submarine, :valid_vertical_submarine, :valid_vertical_submarine 
+  attr_reader :cells, :valid_vertical_submarine, :valid_vertical_submarine 
   
   def initialize
     @cells = {
