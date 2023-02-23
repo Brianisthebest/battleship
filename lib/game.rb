@@ -41,7 +41,9 @@ class Game
       comp_cruiser_placement
       comp_sub_placement
       player_ship_placement
+      sleep(2)
       display_boards
+      sleep(2)
       game_over
     else
       puts 'Invalid response.'
@@ -79,7 +81,7 @@ class Game
     puts "*************************************"
     puts @player_board.render
     puts "Enter the squares for cruiser (3 spaces):"
-    coordinates = gets.chomp.split
+    coordinates = gets.chomp.upcase.split
     if @player_board.valid_placement?(cruiser, coordinates)
       @player_board.place(cruiser, coordinates)
       puts "***********************************"
@@ -94,14 +96,14 @@ class Game
 
   def display_boards
     puts "***********Computer Board*************************"
-    puts @comp_board.render(true)
+    puts @comp_board.render
     puts "***********Player Board*************************"
     puts @player_board.render(true)
   end
 
   def player_turn
     puts "Choose a valid coordinate to fire upon"
-    coordinate = gets.chomp
+    coordinate = gets.chomp.upcase
     if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
       @comp_board.cells[coordinate].fire_upon 
       hit_miss_sink_player(coordinate)
@@ -124,7 +126,8 @@ class Game
 
   def game_over
     until (@player_cruiser_sunk == true && @player_sub_sunk == true) || (@comp_cruiser_sunk == true && @comp_sub_sunk == true)
-      player_turn 
+      player_turn
+      sleep(3)
       display_boards
       comp_turn
       display_boards
@@ -148,7 +151,7 @@ class Game
   def player_submarine
     submarine = Ship.new('Submarine', 2)
     puts 'Enter the squares for submarine (2 spaces):'
-    coordinates = gets.chomp.split
+    coordinates = gets.chomp.upcase.split
     if @player_board.valid_placement?(submarine, coordinates)
      @player_board.place(submarine, coordinates)
      puts "***********************************"
