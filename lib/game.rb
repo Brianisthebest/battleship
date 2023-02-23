@@ -104,6 +104,7 @@ class Game
     coordinate = gets.chomp
     if @comp_board.valid_coordinate?(coordinate) && !@comp_board.cells[coordinate].fired_upon?
       @comp_board.cells[coordinate].fire_upon 
+      hit_miss_sink_player(coordinate)
     else
       puts "Already guessed"
       player_turn
@@ -132,28 +133,14 @@ class Game
     if @player_cruiser_sunk == true && @player_sub_sunk == true
       puts 'Game Over'
       puts 'Computer wins'
-      @player_cruiser_sunk = nil
-      @player_sub_sunk = nil
-      er_board = Board.new
-      @comp_board  = Board.new
-      main_menu
+      game_reset
     elsif @comp_cruiser_sunk == true && @comp_sub_sunk == true
       puts 'Game Over'
       puts 'You Win'
-      @comp_cruiser_sunk = nil
-      @comp_sub_sunk = nil
-      @player_board = Board.new
-      @comp_board  = Board.new
-      main_menu
+      game_reset
     else @player_cruiser_sunk == true && @player_sub_sunk == true && @comp_cruiser_sunk == true && @comp_sub_sunk == true
       puts "Everyone loses!"
-      @comp_cruiser_sunk = nil
-      @comp_sub_sunk = nil
-      @player_cruiser_sunk = nil
-      @player_sub_sunk = nil
-      @player_board = Board.new
-      @comp_board  = Board.new
-      main_menu
+     game_reset
     end
   end
   
@@ -190,6 +177,30 @@ class Game
           @comp_sub_sunk = true
         end
       end
+    end
+  end
+
+  def game_reset
+    @comp_cruiser_sunk = nil
+    @comp_sub_sunk = nil
+    @player_cruiser_sunk = nil
+    @player_sub_sunk = nil
+    @player_board = Board.new
+    @comp_board  = Board.new
+    main_menu
+  end
+
+  def hit_miss_sink_player(coordinate)
+    if @comp_board.cells[coordinate].ship != nil
+      if @comp_board.cells[coordinate].ship.sunk? == true
+        puts 'I sunk your battleship!'
+      elsif @comp_board.cells[coordinate].shot == true
+        puts 'I hit your battleship!'
+      end
+    end
+    if @comp_board.cells[coordinate].ship == nil
+      @comp_board.cells[coordinate].miss == true
+      puts 'Nooo! I missed your battleship!'
     end
   end
 end
