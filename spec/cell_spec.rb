@@ -34,7 +34,6 @@ RSpec.describe Cell do
       @cell.place_ship(@cruiser)
       expect(@cell.ship).to be_a(Ship)
       expect(@cell.empty?).to eq(false)
-      expect(@cell.place_ship(@submarine)).to eq('Ship already placed.')
     end
 
     it 'can be fired upon' do

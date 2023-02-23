@@ -8,70 +8,27 @@ class Game
     @comp_cruiser_sunk = nil
     @comp_sub_sunk = nil
   end
-
-  
-
-
-
   
   def main_menu
-    puts '                               Welcome to BATTLESHIP
-
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~oo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                                 o o
-                                 o ooo
-                                   o oo
-                                      o o      |   #)
-                                       oo     _|_|_#_ 
-                                         o   | 751   |
-    __                    ___________________|       |_________________
-   |   -_______-----------                                              \
-  >|    _____                                                   --->     )
-   |__ -     ---------_________________________________________________ /
-
-                        Enter p to play. Enter q to quit.'
-    input = gets.chomp
-
-    if input == 'q'
-      puts 'Thanks for playing, yall come back now.'
-      exit
-    elsif input == 'p'
-
-      puts 'To your battle station!'
-      puts '      
-        1   2   3   4   
-      +---+---+---+---+
-    A |   |   |   |   |  
-      +---+---+---+---+
-    B |   |   |   |   | 
-      +---+---+---+---+
-    C |   |   |   |   |  
-      +---+---+---+---+
-    D |   |   |   |   |
-      +---+---+---+---+'
-      
-      comp_cruiser_placement
-      comp_sub_placement
-      player_ship_placement
-      sleep(2)
-      display_boards
-      sleep(2)
-      game_over
-      sleep(2)
-    else
-      puts 'Invalid response.'
-      main_menu
-    end
+    welcome_render
+    comp_cruiser_placement
+    comp_sub_placement
+    player_ship_placement
+    sleep(2)
+    display_boards
+    sleep(2)
+    game_over
+    sleep(2)
   end
 
   def comp_cruiser_placement
     cruiser = Ship.new('Cruiser', 3)
     coordinates = @comp_board.cells.keys.each_cons(3).to_a.sample 
     if @comp_board.valid_placement?(cruiser, coordinates)
-        @comp_board.place(cruiser, coordinates)
-        puts "I've placed my cruiser"
-      else
-        comp_cruiser_placement
+      @comp_board.place(cruiser, coordinates)
+      puts "I've placed my cruiser"
+    else
+      comp_cruiser_placement
     end
   end
 
@@ -90,7 +47,7 @@ class Game
     cruiser = Ship.new('Cruiser', 3)
     puts "**********************************************************"
     puts "It's time to put out your ships."
-    puts "8========================================================D" #change this
+    puts "**********************************************************"
     puts "The cruiser is 3 units long, the submarine is 2 units long"
     puts "**********************************************************"
     puts @player_board.render
@@ -104,8 +61,8 @@ class Game
       puts 'Invalid response.'
       player_ship_placement
     end
-      player_submarine
-      puts "********************************************************"
+    player_submarine
+    puts "********************************************************"
   end
 
   def display_boards
@@ -149,6 +106,11 @@ class Game
       display_boards
       ship_sunk
     end
+    game_over_man
+  end
+
+  #helper method
+  def game_over_man
     if @player_cruiser_sunk == true && @player_sub_sunk == true
       puts 'Game Over'
       puts 'Computer wins'
@@ -157,65 +119,63 @@ class Game
       puts 'Game Over'
       puts "############################################################"
       puts " 
-       ___  ____            _           ____     _    _  
+      ___  ____            _           ____     _    _  
       |   |/   /           | |         /    \    (_)   | | 
       |   '   /  ___   ___ | |  ___   /   _  \    _  __| | 
       |      <  / _ \ / _ \| | |___|  /   (_)  \  | |/ _` | 
       |   .   \ | (_) | (_) | |        /   ____   \ | | (_) | 
       |___|\___\\___/ \___/|_|     /___/    \___\|_|\__,_| 
-          _______________          ____________            
-         ( _____________ ) ___    (  YOU WIN   )           
-         /    _     _    \/ _ \   (  OH YEAH!  )           
-        /    (,)   (,)    \/ \ \ /_____________)           
-       |         _         | | |               _______     
-       |        (_)        | | |   _______    (  . .  )_   
-       |     .       .     |/ /   (  . .  )_  |   o   |_)  
-        \     '.....'     /__/    |   o   |_)  ) '-' (     
-         \               /         ) '-' (    (_______)    
-          )_____________(         (_______)                
-     ____(_______________)_________________________________
+      _______________          ____________            
+      ( _____________ ) ___    (  YOU WIN   )           
+      /    _     _    \/ _ \   (  OH YEAH!  )           
+      /    (,)   (,)    \/ \ \ /_____________)           
+      |         _         | | |               _______     
+      |        (_)        | | |   _______    (  . .  )_   
+      |     .       .     |/ /   (  . .  )_  |   o   |_)  
+      \     '.....'     /__/    |   o   |_)  ) '-' (     
+        \               /         ) '-' (    (_______)    
+        )_____________(         (_______)                
+        ____(_______________)_________________________________
         ______            __    __    __                   
-       / __/ /  ___ _____/ /__ / /__ / /  ___ __________ __
-      _\ \/ _ \/ _ `/ __/  '_// / -_) _ \/ -_) __/ __/ // /
-     /___/_//_/\_,_/_/ /_/\_\/_/\__/_.__/\__/_/ /_/  \_, / 
-                              ___ _                 /___/  
-                             / __(_)__                    
-                            / _// / _ \                  
-                 ____      /_/ /_/_//_/        __          
-                / __/__  _______ _  _____ ____/ /          
-               / _// _ \/ __/ -_) |/ / -_) __/_/           
-              /_/  \___/_/  \__/|___/\__/_/ (_)"
-
+        / __/ /  ___ _____/ /__ / /__ / /  ___ __________ __
+        _\ \/ _ \/ _ `/ __/  '_// / -_) _ \/ -_) __/ __/ // /
+        /___/_//_/\_,_/_/ /_/\_\/_/\__/_.__/\__/_/ /_/  \_, / 
+        ___ _                 /___/  
+        / __(_)__                    
+        / _// / _ \                  
+        ____      /_/ /_/_//_/        __          
+        / __/__  _______ _  _____ ____/ /          
+        / _// _ \/ __/ -_) |/ / -_) __/_/           
+        /_/  \___/_/  \__/|___/\__/_/ (_)"
+        
       puts '##########################################################################'
       puts 'You Win!!!!!!'
+      sleep(3)
       game_reset
     else @player_cruiser_sunk == true && @player_sub_sunk == true && @comp_cruiser_sunk == true && @comp_sub_sunk == true
       puts "Everyone loses!"
-     game_reset
+      game_reset
     end
   end
   
-  #helper method
   def player_submarine
     submarine = Ship.new('Submarine', 2)
     puts 'Enter the squares for submarine (2 spaces):'
     coordinates = gets.chomp.upcase.split
     if @player_board.valid_placement?(submarine, coordinates)
-     @player_board.place(submarine, coordinates)
-     puts "**************************************************"
-     puts @player_board.render(true)
+      @player_board.place(submarine, coordinates)
+      puts "**************************************************"
+      puts @player_board.render(true)
     else
-     puts 'Invalid response.'
-     player_submarine
+      puts 'Invalid response.'
+      player_submarine
     end
   end
-
+  
   def ship_sunk
-  it_sunk
+    it_sunk
   end
   
-
-
   def game_reset
     @comp_cruiser_sunk = nil
     @comp_sub_sunk = nil
@@ -225,31 +185,31 @@ class Game
     @comp_board  = Board.new
     main_menu
   end
-
+  
   def hit_miss_sink_player(coordinate)
     if @comp_board.cells[coordinate].ship != nil
       if @comp_board.cells[coordinate].ship.sunk? == true
         puts 'you sunk my battleship!'
         puts "
-                             
-          _______
+        
+        _______
         /         \\
-      /             \\
-    /                 \\
-  /           _________\\
-/        __/;|_[_]|_\\__
-/        /  |;'_|_] [] _|  
-/         |__|__]'|_|_/.\_\\
-/             |===========|
-/        |_____/UUUUUUUUUUUU\\
-/         \\_~~~~~~~~\\\\__   __/
-    |:::::::::::|\\\\~~\\\\
-    |:::::::::::|~\\\\~~\\\\
-    /~~~~~~~~~~~\\\\__\\\\_\\\\
-   /               UUUUUU
-   
-      The ship is sinking!"
-
+        /             \\
+        /                 \\
+        /           _________\\
+        /        __/;|_[_]|_\\__
+        /        /  |;'_|_] [] _|  
+        /         |__|__]'|_|_/.\_\\
+        /             |===========|
+        /        |_____/UUUUUUUUUUUU\\
+        /         \\_~~~~~~~~\\\\__   __/
+        |:::::::::::|\\\\~~\\\\
+        |:::::::::::|~\\\\~~\\\\
+        /~~~~~~~~~~~\\\\__\\\\_\\\\
+        /               UUUUUU
+        
+        The ship is sinking!"
+        
       elsif @comp_board.cells[coordinate].shot == true
         puts "you hit evil computer's battleship on #{coordinate}!"
       end
@@ -260,21 +220,24 @@ class Game
       puts "Nooo! you missed evil computer's battleship on #{coordinate}!"
     end
   end
-
+  
   def comp_hit_miss_sink(comp_guess)
     if @player_board.cells[comp_guess[0]].ship != nil
       if @player_board.cells[comp_guess[0]].ship.sunk? == true
-          puts 'I sunk your battleship!'
+        puts 'I sunk your battleship!'
+        sleep(2)
       elsif @player_board.cells[comp_guess[0]].shot == true
-          puts "I hit your battleship on #{comp_guess[0]}!"
-      end
-      if @player_board.cells[comp_guess[0]].ship == nil
-        @player_board.cells[comp_guess[0]].miss == true
-        puts "Nooo! I missed your battleship on #{comp_guess[0]}!"
+        puts "I hit your battleship on #{comp_guess[0]}!"
+        sleep(2)
       end
     end
+    if @player_board.cells[comp_guess[0]].ship == nil
+      @player_board.cells[comp_guess[0]].miss == true
+      puts "Nooo! I missed your battleship on #{comp_guess[0]}!"
+      sleep(2)
+    end
   end
-
+  
   def it_sunk
     @player_board.cells.each do |_, cell|
       if cell.ship != nil
@@ -293,6 +256,46 @@ class Game
           @comp_sub_sunk = true
         end
       end
+    end
+  end
+  def welcome_render
+    puts '                               Welcome to BATTLESHIP
+    
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~oo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                o o
+                                o ooo
+                                  o oo
+                                      o o      |   #)
+                                      oo     _|_|_#_ 
+                                        o   | 751   |
+    __                    ___________________|       |_________________
+    |   -_______-----------                                              \
+    >|    _____                                                   --->     )
+    |__ -     ---------_________________________________________________ /
+    
+                        Enter p to play. Enter q to quit.'
+    input = gets.chomp
+    
+    if input == 'q'
+      puts 'Thanks for playing, yall come back now.'
+      exit
+    elsif input == 'p'
+    
+      puts 'To your battle station!'
+      puts '      
+        1   2   3   4   
+      +---+---+---+---+
+    A |   |   |   |   |  
+      +---+---+---+---+
+    B |   |   |   |   | 
+      +---+---+---+---+
+    C |   |   |   |   |  
+      +---+---+---+---+
+    D |   |   |   |   |
+      +---+---+---+---+'
+    else
+      puts 'Invalid response.'
+      main_menu
     end
   end
 end

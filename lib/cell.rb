@@ -15,8 +15,6 @@ class Cell
   def place_ship(placed_ship)
     if empty?
       @ship = placed_ship
-    else
-      'Ship already placed.'
     end
   end
 
